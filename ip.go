@@ -67,8 +67,8 @@ func ipMsg(dns *dnslib.Msg) string {
 	return s
 }
 
-func initIpLibrary() {
-	if err := ip17mon.Init("17monipdb.dat"); err != nil {
+func initIpLibrary(path string) {
+	if err := ip17mon.Init(path); err != nil {
 		panic(err)
 	}
 }

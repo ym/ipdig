@@ -55,13 +55,12 @@ func main() {
 	clientdraftcode := flag.Bool("clientdraft", false, "set edns client-subnet option using the draft option code")
 	opcode := flag.String("opcode", "query", "set opcode to query|update|notify")
 	rcode := flag.String("rcode", "success", "set rcode to noerror|formerr|nxdomain|servfail|...")
+	iplib := flag.String("iplib", "./17monipdb.dat", "location of iplib")
 	//serial := flag.Int("serial", 0, "perform an IXFR with this serial")
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "Usage: %s [options] [@server] [qtype...] [qclass...] [name ...]\n", os.Args[0])
 		flag.PrintDefaults()
 	}
-
-	initIpLibrary()
 
 	var (
 		qtype  []uint16
@@ -85,6 +84,8 @@ func main() {
 			dnskey = k
 		}
 	}
+
+	initIpLibrary(*iplib)
 
 	var nameserver string
 
